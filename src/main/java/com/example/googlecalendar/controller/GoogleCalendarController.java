@@ -2,8 +2,6 @@ package com.example.googlecalendar.controller;
 
 import java.io.*;
 import java.util.*;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -42,9 +40,6 @@ public class GoogleCalendarController {
     private static HttpTransport httpTransport;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static com.google.api.services.calendar.Calendar client;
-
-    @Autowired
-    ServletContext servletContext;
 
     @Autowired
     TemplateEngine htmlTemplateEngine;
