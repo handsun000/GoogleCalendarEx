@@ -1,17 +1,15 @@
 package com.example.googlecalendar.controller;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +31,8 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar.Events;
 import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 @Controller
 public class GoogleCalendarController {
@@ -42,6 +42,12 @@ public class GoogleCalendarController {
     private static HttpTransport httpTransport;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static com.google.api.services.calendar.Calendar client;
+
+    @Autowired
+    ServletContext servletContext;
+
+    @Autowired
+    TemplateEngine htmlTemplateEngine;
 
     GoogleClientSecrets clientSecrets;
     GoogleAuthorizationCodeFlow flow;
@@ -68,9 +74,12 @@ public class GoogleCalendarController {
         return new RedirectView(authorize());
     }
 
+
     @RequestMapping(value = "/login/google", method = RequestMethod.GET, params = "code")
     public ResponseEntity<String> oauth2Callback(@RequestParam(value = "code") String code) {
         com.google.api.services.calendar.model.Events eventList;
+        final Context ctx = new Context();
+
         String message;
         try {
             TokenResponse response = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
@@ -79,17 +88,21 @@ public class GoogleCalendarController {
                     .setApplicationName(APPLICATION_NAME).build();
             Events events = client.events();
             eventList = events.list("primary").setTimeMin(date1).setTimeMax(date2).execute();
-            message = eventList.getItems().toString();
-            System.out.println("My:" + eventList.getItems());
+            message = eventList.getSummary().toString();
+            ctx.setVariable("name", message);
+
+
+            System.out.println("My:" + eventList.getSummary());
         } catch (Exception e) {
             logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.");
             message = "Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.";
         }
+        final String htmlContent = this.htmlTemplateEngine.process("index.html",ctx);
 
         System.out.println("cal message:" + message);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        return ResponseEntity.ok().body(htmlContent);
     }
 
     public Set<Event> getEvents() throws IOException {
