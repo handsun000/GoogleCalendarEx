@@ -4,6 +4,14 @@ import java.io.*;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
+import static com.example.googlecalendar.oauth.GoogleAuthorize.*;
+
+import com.example.googlecalendar.oauth.GoogleAuthorize;
+import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.services.calendar.CalendarScopes;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.Details;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar.Events;
-import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -94,7 +97,7 @@ public class GoogleCalendarController {
             message = "Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.";
         }
-        final String htmlContent = this.htmlTemplateEngine.process("index.html",ctx);
+        final String htmlContent = this.htmlTemplateEngine.process("index.html", ctx);
 
         System.out.println("cal message:" + message);
         return ResponseEntity.ok().body(htmlContent);
@@ -107,7 +110,7 @@ public class GoogleCalendarController {
     private String authorize() throws Exception {
         AuthorizationCodeRequestUrl authorizationUrl;
         if (flow == null) {
-            Details web = new Details();
+            GoogleClientSecrets.Details web = new GoogleClientSecrets.Details();
             web.setClientId(clientId);
             web.setClientSecret(clientSecret);
             clientSecrets = new GoogleClientSecrets().setWeb(web);
