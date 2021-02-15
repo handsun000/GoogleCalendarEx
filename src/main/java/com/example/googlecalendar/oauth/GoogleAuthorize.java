@@ -1,8 +1,6 @@
 package com.example.googlecalendar.oauth;
 
-import com.example.googlecalendar.controller.GoogleCalendarController;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
@@ -10,11 +8,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.CalendarScopes;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -22,9 +17,8 @@ import java.util.Collections;
 @Component
 public class GoogleAuthorize {
 
-    private static HttpTransport httpTransport;
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static com.google.api.services.calendar.Calendar client;
+    public static HttpTransport httpTransport;
+    public static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     GoogleClientSecrets clientSecrets;
     public static GoogleAuthorizationCodeFlow flow;
