@@ -10,23 +10,22 @@
     <title>google calendar</title>
 </head>
 <body>
-    <h1>Google Calendar</h1>
+<h1>Google Calendar</h1>
 <!--    <iframe src="https://calendar.google.com/calendar/embed?src=handsun000%40gmail.com&ctz=Asia%2FSeoul" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>-->
 
 <div class="calendar">
 
     <div class="col leftCol">
         <div class="content">
-            <h1 class="date">Friday<span>September 12th</span></h1>
+            <h1 class="date" th:text="${#dates.monthName(standardDate)}">Friday<span>September 12th</span></h1>
             <div class="notes">
                 <p>
                     <input type="text" value="" placeholder="new note"/>
                     <a href="#" title="Add note" class="addNote animate">+</a>
                 </p>
                 <ul class="noteList">
-                    <li th:text="${name}">Headbutt a lion<a href="#" title="Remove note" class="removeNote animate">x</a></li>
-                    <li th:text="${attendees0}">Headbutt a lion<a href="#" title="Remove note" class="removeNote animate">x</a></li>
-                    <li th:text="${attendees1}">Headbutt a lion<a href="#" title="Remove note" class="removeNote animate">x</a></li>
+                    <li th:text="${name}">Headbutt a lion<a href="#" title="Remove note"
+                                                            class="removeNote animate">x</a></li>
                 </ul>
             </div>
         </div>
@@ -34,48 +33,158 @@
 
     <div class="col rightCol">
         <div class="content">
-            <h2 class="year">2013</h2>
-            <ul class="months">
-                <li><a href="#" title="Jan" data-value="1">Jan</a></li>
-                <li><a href="#" title="Feb" data-value="2">Feb</a></li>
-                <li><a href="#" title="Mar" data-value="3">Mar</a></li>
-                <li><a href="#" title="Apr" data-value="4">Apr</a></li>
-                <li><a href="#" title="May" data-value="5">May</a></li>
-                <li><a href="#" title="Jun" data-value="6">Jun</a></li>
-                <li><a href="#" title="Jul" data-value="7">Jul</a></li>
-                <li><a href="#" title="Aug" data-value="8">Aug</a></li>
-                <li><a href="#" title="Sep" data-value="9" class="selected">Sep</a></li>
-                <li><a href="#" title="Oct" data-value="10">Oct</a></li>
-                <li><a href="#" title="Nov" data-value="11">Nov</a></li>
-                <li><a href="#" title="Dec" data-value="12">Dec</a></li>
+            <h2 class="years" id="year" th:text="${#calendars.format(#calendars.createNow(), 'yyyy')}">2013</h2>
+            <ul class="months" id="month">
+                <li><a href="#" title="Jan" data-value="1" id="Jan" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(1)} ? 'selected' : ''">Jan</a></li>
+                <li><a href="#" title="Feb" data-value="2" id="Feb" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(2)} ? 'selected' : ''">Feb</a></li>
+                <li><a href="#" title="Mar" data-value="3" id="Mar" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(3)} ? 'selected' : ''">Mar</a></li>
+                <li><a href="#" title="Apr" data-value="4" id="Apr" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(4)} ? 'selected' : ''">Apr</a></li>
+                <li><a href="#" title="May" data-value="5" id="May" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(5)} ? 'selected' : ''">May</a></li>
+                <li><a href="#" title="Jun" data-value="6" id="Jun" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(6)} ? 'selected' : ''">Jun</a></li>
+                <li><a href="#" title="Jul" data-value="7" id="Jul" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(7)} ? 'selected' : ''">Jul</a></li>
+                <li><a href="#" title="Aug" data-value="8" id="Aug" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(8)} ? 'selected' : ''">Aug</a></li>
+                <li><a href="#" title="Sep" data-value="9" id="Sep" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(9)} ? 'selected' : ''">Sep</a></li>
+                <li><a href="#" title="Oct" data-value="10" id="Oct" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(10)} ? 'selected' : ''">Oct</a></li>
+                <li><a href="#" title="Nov" data-value="11" id="Nov" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(11)} ? 'selected' : ''">Nov</a></li>
+                <li><a href="#" title="Dec" data-value="12" id="Dec" onclick="changeMonth();"
+                       th:class="${#dates.month(standardDate).equals(12)} ? 'selected' : ''">Dec</a></li>
             </ul>
             <div class="clearfix"></div>
             <ul class="weekday">
-                <li><a href="#" title="Mon" data-value="1">Mon</a></li>
-                <li><a href="#" title="Tue" data-value="2">Tue</a></li>
-                <li><a href="#" title="Wed" data-value="3">Wed</a></li>
-                <li><a href="#" title="Thu" data-value="4">Thu</a></li>
-                <li><a href="#" title="Fri" data-value="5">Fri</a></li>
-                <li><a href="#" title="Say" data-value="6">Sat</a></li>
-                <li><a href="#" title="Sun" data-value="7">Sun</a></li>
+                <li><a href="#" title="Sun" data-value="1">Sun</a></li>
+                <li><a href="#" title="Mon" data-value="2">Mon</a></li>
+                <li><a href="#" title="Tue" data-value="3">Tue</a></li>
+                <li><a href="#" title="Wed" data-value="4">Wed</a></li>
+                <li><a href="#" title="Thu" data-value="5">Thu</a></li>
+                <li><a href="#" title="Fri" data-value="6">Fri</a></li>
+                <li><a href="#" title="Say" data-value="7">Sat</a></li>
             </ul>
             <div class="clearfix"></div>
-            <ul class="days">
+            <ul class="days" id="daysbody">
                 <script>
-                    for( var _i = 1; _i <= 31; _i += 1 ){
-                        var _addClass = '';
-                        if( _i === 12 ){ _addClass = ' class="selected"'; }
+                    function checkLeapYear(year) {
+                        if (year % 400 == 0)
+                            return true;
+                        else if (year % 100 == 0)
+                            return false;
+                        else if (year % 4 == 0)
+                            return true;
+                        else
+                            return false;
+                    }
 
-                        switch( _i ){
-                            case 8:
-                            case 10:
-                            case 27:
-                                _addClass = ' class="event"';
-                                break;
+                    function getFirstDayOfWeek(year, month) {
+                        if (month < 10) month = "0" + month;
+
+                        console.log("출력: "+ (new Date(year + "-" + month + "-01")));
+                        return (new Date(year + "-" + month + "-01")).getDay();
+                    }
+
+                    function changeYearMonth(year, month) {
+                        let month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+                        if(month == 2) {
+                            if(checkLeapYear(year)) month_day[1] = 29;
                         }
 
-                        document.write( '<li><a href="#" title="'+_i+'" data-value="'+_i+'"'+_addClass+'>'+_i+'</a></li>' );
+                        let first_day_of_week = getFirstDayOfWeek(year, month);
+                        let arr_calendar = [];
+                        for(let i=0; i<first_day_of_week; i++) {
+                            arr_calendar.push("&nbsp");
+                        }
+
+                        for(let i=1; i<=month_day[month-1]; i++) {
+                            arr_calendar.push(String(i));
+                        }
+
+                        let remain_day = 7-(arr_calendar.length%7);
+                        if(remain_day < 7) {
+                            for (let i=0; i<remain_day; i++) {
+                                arr_calendar.push("");
+                            }
+                        }
+                        renderCalendar(arr_calendar);
                     }
+
+                    function renderCalendar(data) {
+                        let h= [];
+                        for(let i=0; i<data.length; i++){
+                            if(i==0) {
+                                h.push('<ul>');
+                            } else if(i&7 == 0) {
+                                h.push('</ul>');
+                                h.push('<ul>');
+                            }
+
+                            h.push('<li>' +data[i] + '</li>');
+                        }
+
+                        h.push('</ul>');
+
+                        document.write(h.join(""));
+
+                    }
+                    function changeMonth() {
+                        if (current_month == 1){
+                            var month = document.getElementById("Jan").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 2){
+                            var month = document.getElementById("Feb").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 3){
+                            var month = document.getElementById("Mar").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 4){
+                            var month = document.getElementById("Apr").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 5){
+                            var month = document.getElementById("May").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 6){
+                            var month = document.getElementById("Jun").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 7){
+                            var month = document.getElementById("Jul").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 8){
+                            var month = document.getElementById("Aug").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 9){
+                            var month = document.getElementById("Sep").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 10){
+                            var month = document.getElementById("Oct").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 11){
+                            var month = document.getElementById("Nov").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }else if (current_month == 12){
+                            var month = document.getElementById("Dec").getAttribute("data-value");
+                            changeYearMonth(current_year, month);
+                        }
+                    }
+
+                    var current_month = new Date().getMonth() + 1;
+
+                    var current_year = new Date().getFullYear();
+
+                    var $source = document.getElementById("month");
+
+                    // $source.innerText = current_month;
+
+
+                    changeYearMonth(current_year, current_month);
                 </script>
             </ul>
             <div class="clearfix"></div>
