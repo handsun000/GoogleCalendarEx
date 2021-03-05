@@ -83,7 +83,6 @@ public class GoogleCalendarController {
         com.google.api.services.calendar.model.Events eventList;
         final Context ctx = new Context();
 
-
         String message;
         try {
             TokenResponse response = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
@@ -94,9 +93,7 @@ public class GoogleCalendarController {
             eventList = events.list("primary").setTimeMin(date1).setTimeMax(date2).execute();
             message = eventList.getSummary();
             ctx.setVariable("name", message);
-            ctx.setVariable("timestamp", LocalDate.now());
             ctx.setVariable("standardDate", new Date());
-
 
             System.out.println("My:" + eventList.getItems());
         } catch (Exception e) {

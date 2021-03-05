@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
-@Component
+@Configuration
 public class GoogleAuthorize {
 
     public static HttpTransport httpTransport;
