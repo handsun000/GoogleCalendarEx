@@ -13,6 +13,10 @@
 
         var current_year = new Date().getFullYear();
 
+        function startMonth() {
+            document.getElementById(current_month).style.cssText = 'font-weight: bold; color: #747978';
+        }
+
         function checkLeapYear(year) {
             if (year % 400 == 0)
                 return true;
@@ -27,30 +31,30 @@
         function getFirstDayOfWeek(year, month) {
             if (month < 10) month = "0" + month;
 
-            console.log("출력: "+ (new Date(year + "-" + month + "-01")));
+            console.log("출력: " + (new Date(year + "-" + month + "-01")));
             return (new Date(year + "-" + month + "-01")).getDay();
         }
 
         function changeYearMonth(year, month) {
             let month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-            if(month == 2) {
-                if(checkLeapYear(year)) month_day[1] = 29;
+            if (month == 2) {
+                if (checkLeapYear(year)) month_day[1] = 29;
             }
 
             let first_day_of_week = getFirstDayOfWeek(year, month);
             let arr_calendar = [];
-            for(let i=0; i<first_day_of_week; i++) {
+            for (let i = 0; i < first_day_of_week; i++) {
                 arr_calendar.push("&nbsp");
             }
 
-            for(let i=1; i<=month_day[month-1]; i++) {
+            for (let i = 1; i <= month_day[month - 1]; i++) {
                 arr_calendar.push(String(i));
             }
 
-            let remain_day = 7-(arr_calendar.length%7);
-            if(remain_day < 7) {
-                for (let i=0; i<remain_day; i++) {
+            let remain_day = 7 - (arr_calendar.length % 7);
+            if (remain_day < 7) {
+                for (let i = 0; i < remain_day; i++) {
                     arr_calendar.push("");
                 }
             }
@@ -58,10 +62,10 @@
         }
 
         function renderCalendar(data) {
-            for (let i=0; i<data.length; i++) {
-                if(i==0) {
+            for (let i = 0; i < data.length; i++) {
+                if (i == 0) {
                     document.getElementById("daysbody").innerHTML = "<ul>";
-                }  else if (i&7 == 0) {
+                } else if (i & 7 == 0) {
                     document.getElementById("daysbody").innerHTML += "</ul>";
                     document.getElementById("daysbody").innerHTML += "<ul>";
                 }
@@ -69,51 +73,56 @@
             }
         }
 
-
-        function changeMonth() {
-            if (current_month == 1){
-                var month = document.getElementById("Jan").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 2){
-                var month = document.getElementById("Feb").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 3){
-                var month = document.getElementById("Mar").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 4){
-                var month = document.getElementById("Apr").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 5){
-                var month = document.getElementById("May").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 6){
-                var month = document.getElementById("Jun").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 7){
-                var month = document.getElementById("Jul").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 8){
-                var month = document.getElementById("Aug").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 9){
-                var month = document.getElementById("Sep").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 10){
-                var month = document.getElementById("Oct").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 11){
-                var month = document.getElementById("Nov").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }else if (current_month == 12){
-                var month = document.getElementById("Dec").getAttribute("data-value");
-                changeYearMonth(current_year, month);
-            }
+        function changeMonth(count) {
+            if (count == 1) {
+                document.getElementById('1').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            } else if (count != 1) document.getElementById('1').style.cssText = '';
+            if (count == 2) {
+                changeYearMonth(current_year, count);
+                document.getElementById('2').style.cssText = 'font-weight: bold; color: #747978';
+            }else if (count != 2) document.getElementById('2').style.cssText = '';
+            if (count == 3) {
+                document.getElementById('3').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 3) document.getElementById('3').style.cssText = '';
+            if (count == 4) {
+                document.getElementById('4').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 4) document.getElementById('4').style.cssText = '';
+            if (count == 5) {
+                document.getElementById('5').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 5) document.getElementById('5').style.cssText = '';
+            if (count == 6) {
+                document.getElementById('6').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 6) document.getElementById('6').style.cssText = '';
+            if (count == 7) {
+                document.getElementById('7').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 7) document.getElementById('7').style.cssText = '';
+            if (count == 8) {
+                document.getElementById('8').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 8) document.getElementById('8').style.cssText = '';
+            if (count == 9) {
+                document.getElementById('9').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 9) document.getElementById('9').style.cssText = '';
+            if (count == 10) {
+                document.getElementById('10').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 10) document.getElementById('10').style.cssText = '';
+            if (count == 11) {
+                document.getElementById('11').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 11) document.getElementById('11').style.cssText = '';
+            if (count == 12) {
+                document.getElementById('12').style.cssText = 'font-weight: bold; color: #747978';
+                changeYearMonth(current_year, count);
+            }else if (count != 12) document.getElementById('12').style.cssText = '';
         }
-
-        // $source.innerText = current_month;
-
-
-        // changeYearMonth(current_year, current_month);
     </script>
 </head>
 <body>
@@ -142,30 +151,43 @@
         <div class="content">
             <h2 class="years" id="year" th:text="${#calendars.format(#calendars.createNow(), 'yyyy')}">2013</h2>
             <ul class="months" id="month">
-                <!--<li><a href="#" title="Jan" data-value="1" id="Jan" onclick="changeMonth();"
+                <li><a href="/#" title="Jan" data-value="1" id="1"
+                       onclick="changeMonth(document.getElementById('1').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('1')} ? 'selected' : ''">Jan</a></li>
-                <li><a href="#" title="Feb" data-value="2" id="Feb" onclick="changeMonth();"
+                <li><a href="/#" title="Feb" data-value="2" id="2"
+                       onclick="changeMonth(document.getElementById('2').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('2')} ? 'selected' : ''">Feb</a></li>
-                <li><a href="#" title="Mar" data-value="3" id="Mar" onclick="changeMonth();"
+                <li><a href="/#" title="Mar" data-value="3" id="3"
+                       onclick="changeMonth(document.getElementById('3').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('3')} ? 'selected' : ''">Mar</a></li>
-                <li><a href="#" title="Apr" data-value="4" id="Apr" onclick="changeMonth();"
+                <li><a href="/#" title="Apr" data-value="4" id="4"
+                       onclick="changeMonth(document.getElementById('4').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('4')} ? 'selected' : ''">Apr</a></li>
-                <li><a href="#" title="May" data-value="5" id="May" onclick="changeMonth();"
+                <li><a href="/#" title="May" data-value="5" id="5"
+                       onclick="changeMonth(document.getElementById('5').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('5')} ? 'selected' : ''">May</a></li>
-                <li><a href="#" title="Jun" data-value="6" id="Jun" onclick="changeMonth();"
+                <li><a href="/#" title="Jun" data-value="6" id="6"
+                       onclick="changeMonth(document.getElementById('6').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('6')} ? 'selected' : ''">Jun</a></li>
-                <li><a href="#" title="Jul" data-value="7" id="Jul" onclick="changeMonth();"
+                <li><a href="/#" title="Jul" data-value="7" id="7"
+                       onclick="changeMonth(document.getElementById('7').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('7')} ? 'selected' : ''">Jul</a></li>
-                <li><a href="#" title="Aug" data-value="8" id="Aug" onclick="changeMonth();"
+                <li><a href="/#" title="Aug" data-value="8" id="8"
+                       onclick="changeMonth(document.getElementById('8').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('8')} ? 'selected' : ''">Aug</a></li>
-                <li><a href="#" title="Sep" data-value="9" id="Sep" onclick="changeMonth();"
+                <li><a href="/#" title="Sep" data-value="9" id="9"
+                       onclick="changeMonth(document.getElementById('9').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('9')} ? 'selected' : ''">Sep</a></li>
-                <li><a href="#" title="Oct" data-value="10" id="Oct" onclick="changeMonth();"
+                <li><a href="/#" title="Oct" data-value="10" id="10"
+                       onclick="changeMonth(document.getElementById('10').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('10')} ? 'selected' : ''">Oct</a></li>
-                <li><a href="#" title="Nov" data-value="11" id="Nov" onclick="changeMonth();"
+                <li><a href="/#" title="Nov" data-value="11" id="11"
+                       onclick="changeMonth(document.getElementById('11').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('11')} ? 'selected' : ''">Nov</a></li>
-                <li><a href="#" title="Dec" data-value="12" id="Dec" onclick="changeMonth();"
-                       th:class="${#dates.month(standardDate).equals('12')} ? 'selected' : ''">Dec</a></li>-->
+                <li><a href="/#" title="Dec" data-value="12" id="12"
+                       onclick="changeMonth(document.getElementById('12').dataset.value);"
+                       th:class="${#dates.month(standardDate).equals('12')} ? 'selected' : ''">Dec</a></li>
+            <script>startMonth()</script>
             </ul>
             <div class="clearfix"></div>
             <ul class="weekday">
