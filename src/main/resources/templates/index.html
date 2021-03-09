@@ -49,7 +49,10 @@
             }
 
             for (let i = 1; i <= month_day[month - 1]; i++) {
-                arr_calendar.push(String(i));
+                var day = String(i);
+                var dayhtml = "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + String(i) + "<br>" + "<br>";
+                if (day.length == 2) dayhtml = "&nbsp" + "&nbsp" + "&nbsp" + "&nbsp" + String(i) + "<br>" + "<br>";
+                arr_calendar.push(dayhtml);
             }
 
             let remain_day = 7 - (arr_calendar.length % 7);
@@ -69,8 +72,11 @@
                     document.getElementById("daysbody").innerHTML += "</ul>";
                     document.getElementById("daysbody").innerHTML += "<ul>";
                 }
-                document.getElementById("daysbody").innerHTML += "<li>" + data[i] + "</li>";
+                 if(i % 7 == 0)document.getElementById("daysbody").innerHTML += "<li style='color: red'>" + data[i] + "</li>";
+                 else if (i % 7 == 6) document.getElementById("daysbody").innerHTML += "<li style='color: blue'>" + data[i] + "</li>";
+                 else document.getElementById("daysbody").innerHTML += "<li>" + data[i] + "</li>";
             }
+            console.log("출력: "+ data + data.length);
         }
 
         function changeMonth(count) {
@@ -81,47 +87,47 @@
             if (count == 2) {
                 changeYearMonth(current_year, count);
                 document.getElementById('2').style.cssText = 'font-weight: bold; color: #747978';
-            }else if (count != 2) document.getElementById('2').style.cssText = '';
+            } else if (count != 2) document.getElementById('2').style.cssText = '';
             if (count == 3) {
                 document.getElementById('3').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 3) document.getElementById('3').style.cssText = '';
+            } else if (count != 3) document.getElementById('3').style.cssText = '';
             if (count == 4) {
                 document.getElementById('4').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 4) document.getElementById('4').style.cssText = '';
+            } else if (count != 4) document.getElementById('4').style.cssText = '';
             if (count == 5) {
                 document.getElementById('5').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 5) document.getElementById('5').style.cssText = '';
+            } else if (count != 5) document.getElementById('5').style.cssText = '';
             if (count == 6) {
                 document.getElementById('6').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 6) document.getElementById('6').style.cssText = '';
+            } else if (count != 6) document.getElementById('6').style.cssText = '';
             if (count == 7) {
                 document.getElementById('7').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 7) document.getElementById('7').style.cssText = '';
+            } else if (count != 7) document.getElementById('7').style.cssText = '';
             if (count == 8) {
                 document.getElementById('8').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 8) document.getElementById('8').style.cssText = '';
+            } else if (count != 8) document.getElementById('8').style.cssText = '';
             if (count == 9) {
                 document.getElementById('9').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 9) document.getElementById('9').style.cssText = '';
+            } else if (count != 9) document.getElementById('9').style.cssText = '';
             if (count == 10) {
                 document.getElementById('10').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 10) document.getElementById('10').style.cssText = '';
+            } else if (count != 10) document.getElementById('10').style.cssText = '';
             if (count == 11) {
                 document.getElementById('11').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 11) document.getElementById('11').style.cssText = '';
+            } else if (count != 11) document.getElementById('11').style.cssText = '';
             if (count == 12) {
                 document.getElementById('12').style.cssText = 'font-weight: bold; color: #747978';
                 changeYearMonth(current_year, count);
-            }else if (count != 12) document.getElementById('12').style.cssText = '';
+            } else if (count != 12) document.getElementById('12').style.cssText = '';
         }
     </script>
 </head>
@@ -187,7 +193,7 @@
                 <li><a href="/#" title="Dec" data-value="12" id="12"
                        onclick="changeMonth(document.getElementById('12').dataset.value);"
                        th:class="${#dates.month(standardDate).equals('12')} ? 'selected' : ''">Dec</a></li>
-            <script>startMonth()</script>
+                <script>startMonth()</script>
             </ul>
             <div class="clearfix"></div>
             <ul class="weekday">
